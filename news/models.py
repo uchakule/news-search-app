@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Create your models here.
 class SearchKeyword(models.Model):
@@ -7,6 +8,7 @@ class SearchKeyword(models.Model):
     keyword = models.CharField(max_length=255)
     latest_fetched = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    last_searched_at = models.DateTimeField(default=now)
 
     def __str__(self):
         return f"{self.keyword} - {self.user.username}"

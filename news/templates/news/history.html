@@ -1,8 +1,13 @@
 {% for search in searches %}
-  <h3>{{ search.keyword }} ({{ search.last_fetched }})</h3>
+  <h3>
+    {{ search.keyword }} ({{ search.last_fetched }})
+    <a href="{% url 'news:refresh_news' search.keyword %}">🔄 Refresh</a>
+  </h3>
   <ul>
-    {% for article in search.articles.all %}
-      <li><a href="{{ article.url }}" target="_blank">{{ article.title }}</a> - {{ article.published_at }}</li>
+    {% for article in search.newsarticle_set.all %}
+      <li>
+        <a href="{{ article.url }}" target="_blank">{{ article.title }}</a> - {{ article.published_at }}
+      </li>
     {% endfor %}
   </ul>
 {% endfor %}

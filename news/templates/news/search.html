@@ -1,5 +1,24 @@
 <form method="POST">
-    {% csrf_token %}
-    <input type="text" name="keyword" placeholder="Enter a keyword" required>
-    <button type="submit">Search</button>
-  </form>
+  {% csrf_token %}
+  <input type="text" name="keyword" placeholder="Enter a keyword" required>
+  <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if articles %}
+  <h2>Search Results:</h2>
+  <ul>
+    {% for article in articles %}
+      <li>
+        <strong>{{ article.title }}</strong><br>
+        {{ article.description }}<br>
+        <a href="{{ article.url }}" target="_blank">Read more</a><br>
+        <small>Published: {{ article.published_at }}</small>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% elif articles is not none %}
+  <p>No articles found.</p>
+{% endif %}

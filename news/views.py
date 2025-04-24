@@ -68,7 +68,7 @@ def search_news(request):
                     title=art['title'],
                     description=art.get('description', ''),
                     url=art['url'],
-                    source_name=art['source']['name'],
+                    source=art['source']['name'],
                     published_at=art['publishedAt'],
                     language=art.get('language', 'en')
                 )
@@ -94,5 +94,5 @@ def refresh_news(request, keyword):
 
 @login_required
 def history(request):
-    keywords = SearchKeyword.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'news/history.html', {'keywords': keywords})
+    searches = SearchKeyword.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'news/history.html', {'searches': searches})
