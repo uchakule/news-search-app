@@ -20,8 +20,17 @@ A Django-based web application that allows users to search, track, and view news
 ## Tech Stack
 - Python 3, Django
 - News API
-- Bootstrap (for UI)
+- html (for UI)
 
 ## Developer Notes
-- Time spent: ~X hours
-- Experience: (your reflection)
+- Time spent: 6-7 hours
+- Experience: Gained deeper understanding of building full-stack Django applications from scratch.
+Learned to integrate third-party APIs (News API) and handle external data efficiently.
+Implemented user authentication and admin access control.
+Applied best practices for code structure, modularity, and environment management.
+Explored background tasks using Celery (or apscheduler if used).
+Practiced writing clean, PEP8-compliant, and maintainable code with proper documentation.
+Strengthened skills in Git/GitHub for version control and collaboration.
+Understood the importance of user experience in building a responsive and interactive news search portal.
+
+
