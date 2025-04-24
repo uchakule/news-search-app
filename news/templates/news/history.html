@@ -1,0 +1,8 @@
+{% for search in searches %}
+  <h3>{{ search.keyword }} ({{ search.last_fetched }})</h3>
+  <ul>
+    {% for article in search.articles.all %}
+      <li><a href="{{ article.url }}" target="_blank">{{ article.title }}</a> - {{ article.published_at }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}
