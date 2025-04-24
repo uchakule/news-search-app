@@ -5,13 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from django.conf import settings
 from .models import SearchKeyword, Article
-from .forms import KeywordSearchForm
+from .forms import KeywordSearchForm, UserForm
 from .utils import fetch_news_articles
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 NEWS_API_KEY = settings.NEWS_API_KEY
 
 def fetch_articles(keyword, from_date=None):
+    """
+    This function fetch the articles from news api
+    """
     params = {
         'q': keyword,
         'apiKey': NEWS_API_KEY,
@@ -78,6 +83,9 @@ def search_news(request):
 
 @login_required
 def refresh_news(request, keyword):
+    """
+    This function gives you refresh the news
+    """
     try:
         # Get the latest stored date for this keyword
         keyword_obj = SearchKeyword.objects.filter(user=request.user, keyword=keyword).first()
@@ -94,5 +102,24 @@ def refresh_news(request, keyword):
 
 @login_required
 def history(request):
+    """
+    This function gives searches keyword history
+    """
     searches = SearchKeyword.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'news/history.html', {'searches': searches})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def manage_users(request):
+    """
+    This function manages user to view only for admin user it will gives result
+    """
+    users = User.objects.all()
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('news:manage_users')
+    else:
+        form = UserForm()
+    return render(request, 'news/manage_users.html', {'form': form, 'users': users})

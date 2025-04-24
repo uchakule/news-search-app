@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import SearchKeyword, Article
 
-# Register your models here.
+admin.site.register(SearchKeyword)
+admin.site.register(Article)
+

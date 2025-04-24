@@ -1,0 +1,13 @@
+<h2>Add or Update User</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+<h3>All Users</h3>
+<ul>
+  {% for user in users %}
+    <li>{{ user.username }} - Active: {{ user.is_active }}</li>
+  {% endfor %}
+</ul>
